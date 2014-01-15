@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.3.1-hudson-417-SNAPSHOT. --><xs:schema xmlns:tns="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace">
+
+<xs:element name="typeB" type="tns:typeB"></xs:element>
+
+<xs:complexType name="typeB">
+<xs:sequence>
+<xs:element name="pdfData" type="xs:base64Binary" minOccurs="0"></xs:element>
+<xs:element name="faultInfo" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="keyword" type="xs:string" maxOccurs="unbounded"></xs:element>
+<xs:element name="id" type="xs:string"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

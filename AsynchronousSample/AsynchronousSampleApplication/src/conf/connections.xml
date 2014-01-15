@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="http://enterprise.netbeans.org/bpel/AsynchronousSample" xmlns:ns2="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient" xmlns:ns3="AnalysisService" xmlns:ns4="http://ex5.aic.tu/" xmlns:ns5="http://testPackage/" xmlns:ns6="ReportService" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>AsynchronousSampleApplication</name>
+            <description>Represents the Service Assembly of AsynchronousSampleApplication</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="AsynchronousClient_asyncCallbackPortName" service-name="ns1:AsynchronousClient_asyncCallbackService"/>
+                <provider endpoint-name="serviceRequestor_myRole" service-name="ns2:partnerLinkB"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AsynchronousSample_asyncPortName" service-name="ns1:AsynchronousSample_asyncService"/>
+                <provider endpoint-name="serviceProvider_myRole" service-name="ns1:partnerLinkA"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AsynchronousClientPortName" service-name="ns2:AsynchronousClientService"/>
+                <provider endpoint-name="AsynchronousClientProvider_myRole" service-name="ns2:partnerLinkA"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AnalysisServiceRole_partnerRole" service-name="ns2:PartnerLinkAnalysis"/>
+                <provider endpoint-name="AnalysisServiceSoapBinding" service-name="ns3:AnalysisService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="CouchDbSvcRole_partnerRole" service-name="ns2:PartnerLinkCouchDb"/>
+                <provider endpoint-name="CouchDbSvcPort" service-name="ns4:CouchDbSvcService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="TwitterServiceRole_partnerRole" service-name="ns2:PartnerLinkTwitterService"/>
+                <provider endpoint-name="TwitterServicePort" service-name="ns4:TwitterServiceService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="HumanServiceRole_partnerRole" service-name="ns1:PartnerLinkHumanService"/>
+                <provider endpoint-name="HumanServicePort" service-name="ns5:HumanServiceService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="ReportServiceRole_partnerRole" service-name="ns2:PartnerLinkReport"/>
+                <provider endpoint-name="ReportServiceSoapBinding" service-name="ns6:ReportService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="serviceRequestor_partnerRole" service-name="ns1:partnerLinkA"/>
+                <provider endpoint-name="AsynchronousClient_asyncCallbackPortName" service-name="ns1:AsynchronousClient_asyncCallbackService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="serviceProvider_partnerRole" service-name="ns2:partnerLinkB"/>
+                <provider endpoint-name="serviceProvider_myRole" service-name="ns1:partnerLinkA"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

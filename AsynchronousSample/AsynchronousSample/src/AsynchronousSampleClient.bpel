@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2007, Sun Microsystems, Inc. All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+
+  * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+  * Neither the name of Sun Microsystems, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software without
+    specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+  THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<process name="AsynchronousSampleClient"
+         targetNamespace="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient"
+         xmlns:partnerNS="http://enterprise.netbeans.org/bpel/AsynchronousSample"
+         xmlns:wsdlNS="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient"
+         xmlns:xs="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace"
+         xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns0="aicTypes">
+
+    <documentation>
+        The AsynchronousSampleClient BPEL process represents a client interacting with AsynchronousSample process. This process is used for testing the AsynchronousSample process as it requires a client that is capable of receiving an asynchronous callback. From this process the AsynchronousSample process will receive incoming data and to this process it will return the result.
+    </documentation>
+
+    <import namespace="http://enterprise.netbeans.org/bpel/AsynchronousSample"
+            location="AsynchronousSample.wsdl"
+            importType="http://schemas.xmlsoap.org/wsdl/"/>
+
+    <import namespace="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient"
+            location="AsynchronousSampleClient.wsdl"
+            importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/reportServiceWrapper2" location="ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportServiceWrapper2.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="ReportService" location="ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/CouchDbSvcServiceWrapper" location="localhost_8080/CouchDbSvc/CouchDbSvcServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://ex5.aic.tu/" location="localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/TwitterServiceServiceWrapper" location="localhost_8080/TwitterService/TwitterServiceServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://ex5.aic.tu/" location="localhost_8080/TwitterService/TwitterServiceService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/analysisServiceWrapper" location="ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisServiceWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="AnalysisService" location="ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PartnerLinkCouchDb" xmlns:tns="http://enterprise.netbeans.org/bpel/CouchDbSvcServiceWrapper" partnerLinkType="tns:CouchDbSvcLinkType" partnerRole="CouchDbSvcRole"/>
+        <partnerLink name="PartnerLinkTwitterService" xmlns:tns="http://enterprise.netbeans.org/bpel/TwitterServiceServiceWrapper" partnerLinkType="tns:TwitterServiceLinkType" partnerRole="TwitterServiceRole"/>
+        <partnerLink name="PartnerLinkAnalysis" xmlns:tns="http://enterprise.netbeans.org/bpel/analysisServiceWrapper" partnerLinkType="tns:AnalysisServiceLinkType" partnerRole="AnalysisServiceRole"/>
+        <partnerLink name="PartnerLinkReport" xmlns:tns="http://enterprise.netbeans.org/bpel/reportServiceWrapper2" partnerLinkType="tns:ReportServiceLinkType" partnerRole="ReportServiceRole"/>
+        <partnerLink
+            name="partnerLinkA"
+            partnerLinkType="wsdlNS:AsynchronousClientPartnerLinkType"
+            myRole="AsynchronousClientProvider"/>
+
+        <partnerLink
+            name="partnerLinkB"
+            partnerLinkType="partnerNS:AsyncPartnerLinkType"
+            myRole="serviceRequestor"
+            partnerRole="serviceProvider">
+
+            <documentation>
+                This partner link defines interaction between the AsynchronousSampleClient process and it's partner (AsynchronousSample process in this case). The Client process sends a message to AsynchronousSample process and then asynchronously receives a message from it. The partnerlink has two operations defined, a partner can receive a message from the AsynchronousSampleClient process and call the process.
+            </documentation>
+        </partnerLink>
+    </partnerLinks>
+
+    <variables>
+        <variable name="CalculateConfidenceOut" xmlns:tns="AnalysisService" messageType="tns:GetOverallConfidenceResponse"/>
+        <variable name="CalculateConfidenceIn" xmlns:tns="AnalysisService" messageType="tns:GetOverallConfidence"/>
+        <variable name="GenerateReportOut" xmlns:tns="ReportService" messageType="tns:GetReportResponse"/>
+        <variable name="GenerateReportIn" xmlns:tns="ReportService" messageType="tns:GetReport"/>
+        <variable name="inputVar" messageType="wsdlNS:requestMessageClient"/>
+        <variable name="outputVar" messageType="wsdlNS:responseMessageClient"/>
+        <variable name="partnerInputVar" messageType="partnerNS:requestMessage"/>
+        <variable name="partnerOutputVar" messageType="partnerNS:responseMessage"/>
+        <variable name="SentimentCouchdb" xmlns:tns="AnalysisService" messageType="tns:GetSentimentRatingResponse"/>
+        <variable name="SentimentTwitter" xmlns:tns="AnalysisService" messageType="tns:GetSentimentRatingResponse"/>
+        <variable name="SentimentTwitterInitalized" type="xsd:boolean"/>
+        <variable name="SentimentCouchDbInitalized" type="xsd:boolean"/>
+    </variables>
+
+    <correlationSets>
+        <documentation>
+            BPEL runtime uses correlation sets to route messages to the right process instance. Correlation set is made up of one or more property values. Properties in turn are defined in a WSDL file and get their value through property aliases (also defined in WSDL). Property aliases are the rules that tell the BPEL runtime how to map data from a message into a property value.
+        </documentation>
+
+        <correlationSet name="correlator" properties="wsdlNS:correlatorProp"/>
+    </correlationSets>
+
+    <sequence>
+        <receive
+            name="start"
+            partnerLink="partnerLinkA"
+            portType="wsdlNS:MyPortTypeClient"
+            operation="operationA"
+            variable="inputVar"
+            createInstance="yes">
+            <correlations>
+                <correlation set="correlator" initiate="yes">
+                    <documentation>
+                        Correlation set is initiated with the values of the properties found in the message.
+                    </documentation>
+                </correlation>
+            </correlations>
+        </receive>
+        <assign name="InitVariables">
+            <copy>
+                <from>false()</from>
+                <to variable="SentimentCouchDbInitalized"/>
+            </copy>
+            <copy>
+                <from>false()</from>
+                <to variable="SentimentTwitterInitalized"/>
+            </copy>
+            <copy>
+                <from>$inputVar.inputType/keyword</from>
+                <to>$outputVar.resultType/keyword</to>
+            </copy>
+        </assign>
+
+        <forEach name="ForEachKeyword" counterName="ForKeywordsCounter" parallel="no">
+            <startCounterValue>1</startCounterValue>
+            <finalCounterValue>count($inputVar.inputType/keyword)</finalCounterValue>
+            <scope name="ForKeywordsScope">
+                <variables>
+                    <variable name="MergeListsOutTwitter" xmlns:tns="AnalysisService" messageType="tns:MergeTermListsResponse"/>
+                    <variable name="MergeListsInTwitter" xmlns:tns="AnalysisService" messageType="tns:MergeTermLists"/>
+                    <variable name="MergeListsOutCouch" xmlns:tns="AnalysisService" messageType="tns:MergeTermListsResponse"/>
+                    <variable name="MergeListsInCouch" xmlns:tns="AnalysisService" messageType="tns:MergeTermLists"/>
+                    <variable name="GetSentimentOut2" xmlns:tns="AnalysisService" messageType="tns:GetSentimentRatingResponse"/>
+                    <variable name="GetSentimentIn2" xmlns:tns="AnalysisService" messageType="tns:GetSentimentRating"/>
+                    <variable name="TwitterSearchOut" xmlns:tns="http://ex5.aic.tu/" messageType="tns:twitterSearchResponse"/>
+                    <variable name="TwitterSearchIn" xmlns:tns="http://ex5.aic.tu/" messageType="tns:twitterSearch"/>
+                    <variable name="GetSentimentOut1" xmlns:tns="AnalysisService" messageType="tns:GetSentimentRatingResponse"/>
+                    <variable name="GetSentimentIn1" xmlns:tns="AnalysisService" messageType="tns:GetSentimentRating"/>
+                    <variable name="SearchDocumentsForOut" xmlns:tns="http://ex5.aic.tu/" messageType="tns:searchDocumentsForResponse"/>
+                    <variable name="SearchDocumentsForIn" xmlns:tns="http://ex5.aic.tu/" messageType="tns:searchDocumentsFor"/>
+                    <variable name="HasCouchResults" type="xsd:boolean" />
+                    <variable name="HasTwitterResults" type="xsd:boolean" />
+                </variables>
+
+                <flow name="QueryFlow">
+                    <sequence name="QueryChouchSequence">
+                        <assign name="AssignCurrentKeyword_Couch">
+                            <copy>
+                                <from>$inputVar.inputType/keyword[$ForKeywordsCounter]</from>
+                                <to>$SearchDocumentsForIn.parameters/arg0</to>
+                            </copy>
+                        </assign>
+
+                        <scope>
+                            <faultHandlers>
+                                <catchAll>
+                                    <assign name="AssignNoCouchResults">
+                                        <copy>
+                                            <from>false()</from>
+                                            <to variable="HasCouchResults"/>
+                                        </copy>
+                                    </assign>
+                                </catchAll>
+                            </faultHandlers>
+                            <sequence>
+                                <invoke name="InvokeCouchDbSearch" partnerLink="PartnerLinkCouchDb" operation="searchDocumentsFor" xmlns:tns="http://ex5.aic.tu/" portType="tns:CouchDbSvc" inputVariable="SearchDocumentsForIn" outputVariable="SearchDocumentsForOut" />
+                                <assign>
+                                    <copy>
+                                        <from>count($SearchDocumentsForOut.parameters/return) &gt;= 1</from>
+                                        <to variable="HasCouchResults"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </scope>
+
+
+                        <if name="IfHasCouchResults">
+                            <condition>$HasCouchResults</condition>
+                            <sequence>
+                                <forEach name="ForEachCouchResult" parallel="no" counterName="ForEachCouchCounter">
+                                    <startCounterValue>1</startCounterValue>
+                                    <finalCounterValue>count($SearchDocumentsForOut.parameters/return)</finalCounterValue>
+                                    <scope name="forCouchScope">
+                                        <variables>
+                                            <variable name="GetContentOut" xmlns:tns="http://ex5.aic.tu/" messageType="tns:getContentResponse"/>
+                                            <variable name="GetContentIn" xmlns:tns="http://ex5.aic.tu/" messageType="tns:getContent"/>
+                                        </variables>
+                                        <sequence>
+                                            <assign name="AssignCurrentCouchResult">
+                                                <copy>
+                                                    <from>$SearchDocumentsForOut.parameters/return[$ForEachCouchCounter]</from>
+                                                    <to>$GetContentIn.parameters/arg0</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeGetCouchDbContent" partnerLink="PartnerLinkCouchDb" operation="getContent" xmlns:tns="http://ex5.aic.tu/" portType="tns:CouchDbSvc" inputVariable="GetContentIn" outputVariable="GetContentOut"/>
+                                            <assign name="AssignCurrentCouchContent">
+                                                <copy>
+                                                    <from>$GetContentOut.parameters/return</from>
+                                                    <to>$GetSentimentIn1.GetSentimentRating/ns0:value[$ForEachCouchCounter]</to>
+                                                </copy>
+                                            </assign>
+                                        </sequence>
+                                    </scope>
+                                </forEach>
+
+                                <scope name="ScopeInvokeGetCouchDbSentiment">
+                                    <faultHandlers>
+                                        <catchAll>
+                                            <sequence>
+                                                <assign name="AssignError1">
+                                                    <copy>
+                                                        <from>'Could not generate your report because the Analysis-Service is unreachable. Please try again later!' </from>
+                                                        <to>$outputVar.resultType/faultInfo</to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$inputVar.inputType/id</from>
+                                                        <to>$outputVar.resultType/id</to>
+                                                    </copy>
+                                                </assign>
+                                                <reply
+                                                    name="endError1"
+                                                    partnerLink="partnerLinkA"
+                                                    portType="wsdlNS:MyPortTypeClient"
+                                                    operation="operationA"
+                                                    variable="outputVar"/>
+                                            </sequence>
+                                        </catchAll>
+                                    </faultHandlers>
+                                    <invoke name="InvokeGetCouchDbSentiment" partnerLink="PartnerLinkAnalysis" operation="getSentiment" xmlns:tns="AnalysisService" portType="tns:AnalysisServicePortType" inputVariable="GetSentimentIn1" outputVariable="GetSentimentOut1"/>
+                                </scope>
+
+                                <if name="IfCouchListInitialized">
+                                    <condition>$SentimentCouchDbInitalized</condition>
+                                    <sequence name="JoinCouchSentiments">
+                                        <assign name="AssignGetCouchDbSentimentResult">
+                                            <copy>
+                                                <from variable="SentimentCouchdb" part="GetSentimentRatingResponse"/>
+                                                <to variable="MergeListsInCouch" part="List1"/>
+                                            </copy>
+                                            <copy>
+                                                <from variable="GetSentimentOut1" part="GetSentimentRatingResponse"/>
+                                                <to variable="MergeListsInCouch" part="List2"/>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeMergeCouchList" partnerLink="PartnerLinkAnalysis" operation="mergeLists" xmlns:tns="AnalysisService" portType="tns:AnalysisServicePortType" inputVariable="MergeListsInCouch" outputVariable="MergeListsOutCouch"/>
+                                        <assign name="AssignJoinedSentiment">
+                                            <copy>
+                                                <from variable="MergeListsOutCouch" part="MergedList"/>
+                                                <to variable="SentimentCouchdb" part="GetSentimentRatingResponse"/>
+                                            </copy>
+                                        </assign>
+                                    </sequence>
+                                    <else>
+                                        <assign name="AssignFirstCouchSentiment">
+                                            <copy>
+                                                <from variable="GetSentimentOut1" part="GetSentimentRatingResponse"/>
+                                                <to variable="SentimentCouchdb" part="GetSentimentRatingResponse"/>
+                                            </copy>
+                                            <copy>
+                                                <from>true()</from>
+                                                <to variable="SentimentCouchDbInitalized"/>
+                                            </copy>
+
+                                        </assign>
+                                    </else>
+                                </if>
+                            </sequence>
+                        </if>
+                    </sequence>
+                    <sequence name="queryTwitterSequence">
+                        <assign name="AssignCurrentKeyword_Twitter">
+                            <copy>
+                                <from>$inputVar.inputType/keyword[$ForKeywordsCounter]</from>
+                                <to>$TwitterSearchIn.parameters/arg0</to>
+                            </copy>
+                        </assign>
+                        <scope>
+                            <faultHandlers>
+                                <catchAll>
+                                    <assign name="AssignNoTwitterResults">
+                                        <copy>
+                                            <from>false()</from>
+                                            <to variable="HasTwitterResults"/>
+                                        </copy>
+                                    </assign>
+                                </catchAll>
+                            </faultHandlers>
+                            <sequence>
+                                <invoke name="InvokeTwitterSearch" partnerLink="PartnerLinkTwitterService" operation="twitterSearch" xmlns:tns="http://ex5.aic.tu/" portType="tns:TwitterService" inputVariable="TwitterSearchIn" outputVariable="TwitterSearchOut"/>
+                                <assign name="AssignHasTwitterResults">
+                                    <copy>
+                                        <from>count($TwitterSearchOut.parameters/return) &gt;= 1</from>
+                                        <to variable="HasTwitterResults"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </scope>
+                        <if name="IfHasTwitterResults">
+                            <condition>$HasTwitterResults</condition>
+                            <sequence>
+                                <forEach name="ForEachTwitterResult" parallel="no" counterName="ForEachTwitterCounter">
+                                    <startCounterValue>1</startCounterValue>
+                                    <finalCounterValue>count($TwitterSearchOut.parameters/return)</finalCounterValue>
+                                    <scope name="ForEachTwitterScope">
+                                        <assign name="AssignTwitterSentimentIn">
+                                            <copy>
+                                                <from>$TwitterSearchOut.parameters/return[$ForEachTwitterCounter]</from>
+                                                <to>$GetSentimentIn2.GetSentimentRating/ns0:value[$ForEachTwitterCounter]</to>
+                                            </copy>
+                                        </assign>
+
+                                    </scope>
+                                </forEach>
+                                <scope name="ScopeInvokeGetTwitterSentiment">
+                                    <faultHandlers>
+                                        <catchAll>
+                                            <sequence>
+                                                <assign name="AssignError2">
+                                                    <copy>
+                                                        <from>'Could not generate your report because the Analysis-Service is unreachable. Please try again later!' </from>
+                                                        <to>$outputVar.resultType/faultInfo</to>
+                                                    </copy>
+                                                    <copy>
+                                                        <from>$inputVar.inputType/id</from>
+                                                        <to>$outputVar.resultType/id</to>
+                                                    </copy>
+                                                </assign>
+                                                <reply
+                                                    name="endError2"
+                                                    partnerLink="partnerLinkA"
+                                                    portType="wsdlNS:MyPortTypeClient"
+                                                    operation="operationA"
+                                                    variable="outputVar"/>
+                                            </sequence>
+                                        </catchAll>
+                                    </faultHandlers>
+                                    <invoke name="InvokeTwitterAnalysis" partnerLink="PartnerLinkAnalysis" operation="getSentiment" xmlns:tns="AnalysisService" portType="tns:AnalysisServicePortType" inputVariable="GetSentimentIn2" outputVariable="GetSentimentOut2"/>
+                                </scope>
+                                <if name="IfTwitterListInitialized">
+                                    <condition>$SentimentTwitterInitalized</condition>
+                                    <sequence>
+                                        <assign name="AssignTwitterSentimentResult">
+                                            <copy>
+                                                <from variable="GetSentimentOut2" part="GetSentimentRatingResponse"/>
+                                                <to variable="MergeListsInTwitter" part="List2"/>
+                                            </copy>
+                                            <copy>
+                                                <from variable="SentimentTwitter" part="GetSentimentRatingResponse"/>
+                                                <to variable="MergeListsInTwitter" part="List1"/>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeMergeTwitterLists" partnerLink="PartnerLinkAnalysis" operation="mergeLists" xmlns:tns="AnalysisService" portType="tns:AnalysisServicePortType" inputVariable="MergeListsInTwitter" outputVariable="MergeListsOutTwitter"/>
+                                        <assign name="AssignJoinedTwitterSentiment">
+                                            <copy>
+                                                <from variable="MergeListsOutTwitter" part="MergedList"/>
+                                                <to variable="SentimentTwitter" part="GetSentimentRatingResponse"/>
+                                            </copy>
+                                        </assign>
+                                    </sequence>
+                                    <else>
+                                        <assign name="AssignFirstTwitterResult">
+                                            <copy>
+                                                <from variable="GetSentimentOut2" part="GetSentimentRatingResponse"/>
+                                                <to variable="SentimentTwitter" part="GetSentimentRatingResponse"/>
+                                            </copy>
+                                            <copy>
+                                                <from>true()</from>
+                                                <to variable="SentimentTwitterInitalized"/>
+                                            </copy>
+                                        </assign>
+                                    </else>
+                                </if>
+                            </sequence>
+                        </if>
+                    </sequence>
+                </flow>
+            </scope>
+        </forEach>
+
+        <if name="IfNoResults">
+            <condition>not($SentimentTwitterInitalized) and not($SentimentCouchDbInitalized)</condition>
+            <assign name="AssignNoResult" >
+                <copy>
+                    <from>$inputVar.inputType/id</from>
+                    <to>$outputVar.resultType/id</to>
+                </copy>
+                <copy>
+                    <from>'Your Search yielded no Results.'</from>
+                    <to>$outputVar.resultType/faultInfo</to>
+                </copy>
+            </assign>
+
+
+            <else>
+                <sequence>
+                    <scope name="ScopeGenerateReport">
+                        <variables>
+                            <variable name="MergeListsOut" xmlns:tns="AnalysisService" messageType="tns:MergeTermListsResponse"/>
+                            <variable name="MergeListsIn" xmlns:tns="AnalysisService" messageType="tns:MergeTermLists"/>
+                        </variables>
+
+                        <sequence name="SequenceGenerateReport">
+                            <flow name="FlowAssignResults">
+
+                                <if name="IfTwitterResultsAvailable">
+                                    <condition>$SentimentTwitterInitalized</condition>
+                                    <assign name="AssignCompletedTwitterSentiments">
+                                        <copy ignoreMissingFromData="yes" >
+                                            <from variable="SentimentTwitter" part="GetSentimentRatingResponse"/>
+                                            <to variable="GenerateReportIn" part="GetReportTwitter"/>
+                                        </copy>
+                                        <copy>
+                                            <from variable="SentimentTwitter" part="GetSentimentRatingResponse"/>
+                                            <to variable="MergeListsIn" part="List1"/>
+                                        </copy>
+                                    </assign>
+                                </if>
+                                <if name="IfCouchResultsAvailable">
+                                    <condition>$SentimentCouchDbInitalized</condition>
+                                    <assign name="AssignCompletedCouchSentiments">
+                                        <copy  ignoreMissingFromData="yes" >
+                                            <from variable="SentimentCouchdb" part="GetSentimentRatingResponse"/>
+                                            <to variable="GenerateReportIn" part="GetReportCouchDB"/>
+                                        </copy>
+                                        <copy>
+                                            <from variable="SentimentCouchdb" part="GetSentimentRatingResponse"/>
+                                            <to variable="MergeListsIn" part="List2"/>
+                                        </copy>
+                                    </assign>
+                                </if>
+                            </flow>
+
+                            <flow name="FlowGetReportAndConfidence">
+                                <sequence name="SequenceGetReport">
+                                    <invoke name="InvokeGenerateReport" partnerLink="PartnerLinkReport" operation="generateReport" xmlns:tns="ReportService" portType="tns:ReportServicePortType" inputVariable="GenerateReportIn" outputVariable="GenerateReportOut"/>
+                                    <assign name="AssignResult">
+                                        <copy>
+                                            <from>$GenerateReportOut.GetReportResponse/ns0:report</from>
+                                            <to>$partnerInputVar.inputType/pdfData</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$inputVar.inputType/id</from>
+                                            <to>$partnerInputVar.inputType/id</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$inputVar.inputType/keyword</from>
+                                            <to>$partnerInputVar.inputType/keyword</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                                <sequence>
+                                    <invoke name="InvokeMergeLists" partnerLink="PartnerLinkAnalysis" operation="mergeLists" xmlns:tns="AnalysisService" portType="tns:AnalysisServicePortType" inputVariable="MergeListsIn" outputVariable="MergeListsOut"/>
+                                    <assign>
+                                        <copy>
+                                            <from variable="MergeListsOut" part="MergedList"/>
+                                            <to variable="CalculateConfidenceIn" part="ResultList"/>
+                                        </copy>
+                                    </assign>
+
+                                    <invoke name="InvokeGetConfidence" partnerLink="PartnerLinkAnalysis" operation="calculateConfidence" xmlns:tns="AnalysisService" portType="tns:AnalysisServicePortType" inputVariable="CalculateConfidenceIn" outputVariable="CalculateConfidenceOut"/>
+                                </sequence>
+                            </flow>
+                        </sequence>
+                    </scope>
+                    
+                    <if name="IfHasNotEnoughConfidence">
+                        <condition>$CalculateConfidenceOut.Confidence/ns0:confidence &gt; 0.5</condition>
+
+                        <scope name="ScopeAsyncConfirmation">
+
+                            <sequence >
+                                <invoke
+            name="invokepartner"
+            partnerLink="partnerLinkB"
+            portType="partnerNS:MyPortType"
+            operation="asyncOperation"
+            inputVariable="partnerInputVar">
+
+                                    <documentation>
+                        The process sends a message to the partner (AsynchronousSample process will receive it).
+                                    </documentation>
+                                </invoke>
+
+                                <receive
+            name="receiveCallback"
+            partnerLink="partnerLinkB"
+            portType="partnerNS:MyCallbackPortType"
+            operation="onResult"
+            variable="partnerOutputVar"
+            createInstance="no">
+
+                                    <documentation>
+                        The process receives a response from the partner.
+                                    </documentation>
+
+                                    <correlations>
+                                        <correlation set="correlator"/>
+                                    </correlations>
+                                </receive>
+
+                                <assign name="AssignConfirmedReport">
+                                    <copy>
+                                        <from variable="partnerOutputVar" part="resultType"/>
+                                        <to variable="outputVar" part="resultType"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </scope>
+                        
+                        <else>
+                            <assign name="AssignAutomaticReport">
+                                <copy>
+                                    <from variable="partnerInputVar" part="inputType"/>
+                                    <to variable="outputVar" part="resultType"/>
+                                </copy>
+                            </assign>
+                        </else>
+                    </if>
+                </sequence>
+            </else>
+        </if>
+        
+
+        <reply
+            name="end"
+            partnerLink="partnerLinkA"
+            portType="wsdlNS:MyPortTypeClient"
+            operation="operationA"
+            variable="outputVar"/>
+    </sequence>
+</process>

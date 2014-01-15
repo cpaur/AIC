@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?><xs:schema elementFormDefault="qualified" targetNamespace="aicTypes" xmlns:tns="aicTypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="StringContainer">
+        <xs:complexType>
+            <xs:all>
+                <xs:element maxOccurs="1" minOccurs="1" name="name" type="xs:string" />
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ConfidenceContainer">
+        <xs:complexType>
+            <xs:all>
+                <xs:element maxOccurs="1" minOccurs="1" name="confidence" type="xs:decimal" />
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="StringListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="1" name="value" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="TermListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="1" name="Term">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" name="text" type="xs:string" />
+                        <xs:element maxOccurs="1" minOccurs="1" name="confidence" type="xs:decimal" />
+                        <xs:element maxOccurs="1" minOccurs="1" name="sentiment" type="xs:string" />
+                    </xs:sequence>
+                </xs:complexType>
+                </xs:element>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="PDFReport">
+        <xs:complexType>
+            <xs:all>
+                <xs:element minOccurs="0" name="report" type="xs:base64Binary" />
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>

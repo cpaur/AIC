@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions targetNamespace="ReportService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="ReportService" xmlns:types="aicTypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="ReportService" xmlns:types="aicTypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="aicTypes" schemaLocation="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/reportService?xsd=types.xsd" />
+        </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetReport">
+    <wsdl:part element="types:TermListResponse" name="GetReportTwitter">
+    </wsdl:part>
+    <wsdl:part element="types:TermListResponse" name="GetReportCouchDB">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetReportResponse">
+    <wsdl:part element="types:PDFReport" name="GetReportResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ReportServicePortType">
+    <wsdl:operation name="generateReport">
+<wsdl:documentation>Returns a PDF report.</wsdl:documentation>
+      <wsdl:input message="tns:GetReport" name="GetReport">
+    </wsdl:input>
+      <wsdl:output message="tns:GetReportResponse" name="GetReportResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReportServiceSoapBinding" type="tns:ReportServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="generateReport">
+      <soap:operation soapAction="generateReport" />
+      <wsdl:input name="GetReport">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetReportResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReportService">
+    <wsdl:port binding="tns:ReportServiceSoapBinding" name="ReportServiceSoapBinding">
+      <soap:address location="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/reportService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

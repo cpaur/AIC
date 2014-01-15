@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="reportServiceWrapper2" targetNamespace="http://enterprise.netbeans.org/bpel/reportServiceWrapper2" xmlns:tns="http://enterprise.netbeans.org/bpel/reportServiceWrapper2" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="ReportService">
+    <import location="reportService.wsdl" namespace="ReportService"/>
+    <plnk:partnerLinkType name="ReportServiceLinkType">
+        <plnk:role name="ReportServiceRole" portType="ns:ReportServicePortType"/>
+    </plnk:partnerLinkType>
+</definitions>

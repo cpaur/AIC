@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions targetNamespace="AnalysisService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="AnalysisService" xmlns:types="aicTypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="AnalysisService" xmlns:types="aicTypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="aicTypes" schemaLocation="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/analysisService?xsd=types.xsd" />
+        </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSentimentRating">
+    <wsdl:part element="types:StringListResponse" name="GetSentimentRating">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetSentimentRatingResponse">
+    <wsdl:part element="types:TermListResponse" name="GetSentimentRatingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="MergeTermListsResponse">
+    <wsdl:part element="types:TermListResponse" name="MergedList">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="MergeTermLists">
+    <wsdl:part element="types:TermListResponse" name="List1">
+    </wsdl:part>
+    <wsdl:part element="types:TermListResponse" name="List2">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetOverallConfidenceResponse">
+    <wsdl:part element="types:ConfidenceContainer" name="Confidence">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetOverallConfidence">
+    <wsdl:part element="types:TermListResponse" name="ResultList">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AnalysisServicePortType">
+    <wsdl:operation name="getSentiment">
+<wsdl:documentation>Returns sentiment ratings.</wsdl:documentation>
+      <wsdl:input message="tns:GetSentimentRating" name="GetSentimentRating">
+    </wsdl:input>
+      <wsdl:output message="tns:GetSentimentRatingResponse" name="GetSentimentRatingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mergeLists">
+<wsdl:documentation>Merges two term lists.</wsdl:documentation>
+      <wsdl:input message="tns:MergeTermLists" name="MergeTermLists">
+    </wsdl:input>
+      <wsdl:output message="tns:MergeTermListsResponse" name="MergeTermListsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="calculateConfidence">
+<wsdl:documentation>Calculates the overall confidence.</wsdl:documentation>
+      <wsdl:input message="tns:GetOverallConfidence" name="GetOverallConfidence">
+    </wsdl:input>
+      <wsdl:output message="tns:GetOverallConfidenceResponse" name="GetOverallConfidenceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AnalysisServiceSoapBinding" type="tns:AnalysisServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getSentiment">
+      <soap:operation soapAction="getSentiment" />
+      <wsdl:input name="GetSentimentRating">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetSentimentRatingResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="mergeLists">
+      <soap:operation soapAction="mergeLists" />
+      <wsdl:input name="MergeTermLists">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="MergeTermListsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="calculateConfidence">
+      <soap:operation soapAction="calculateConfidence" />
+      <wsdl:input name="GetOverallConfidence">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetOverallConfidenceResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AnalysisService">
+    <wsdl:port binding="tns:AnalysisServiceSoapBinding" name="AnalysisServiceSoapBinding">
+      <soap:address location="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/analysisService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

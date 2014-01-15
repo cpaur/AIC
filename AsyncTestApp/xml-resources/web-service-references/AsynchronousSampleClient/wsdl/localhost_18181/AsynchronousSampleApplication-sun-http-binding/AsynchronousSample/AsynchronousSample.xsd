@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace">
+
+    <element name="typeA">
+        <complexType>
+            <sequence>
+                <element name="keyword" type="xsd:string"/>
+                <element name="id" type="xsd:string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="typeB">
+        <complexType>
+            <sequence>
+                <element name="pdfData" type="xsd:base64Binary"/>
+                <element name="id" type="xsd:string"/>
+            </sequence>
+        </complexType>
+    </element>
+</xsd:schema>

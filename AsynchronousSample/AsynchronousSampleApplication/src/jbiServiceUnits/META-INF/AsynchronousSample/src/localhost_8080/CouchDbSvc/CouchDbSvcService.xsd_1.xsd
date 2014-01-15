@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.3.1-hudson-417-SNAPSHOT. --><xs:schema xmlns:tns="http://ex5.aic.tu/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ex5.aic.tu/">
+
+<xs:element name="IOException" type="tns:IOException"></xs:element>
+
+<xs:element name="createDocument" type="tns:createDocument"></xs:element>
+
+<xs:element name="createDocumentResponse" type="tns:createDocumentResponse"></xs:element>
+
+<xs:element name="getContent" type="tns:getContent"></xs:element>
+
+<xs:element name="getContentResponse" type="tns:getContentResponse"></xs:element>
+
+<xs:element name="getDocument" type="tns:getDocument"></xs:element>
+
+<xs:element name="getDocumentResponse" type="tns:getDocumentResponse"></xs:element>
+
+<xs:element name="getTitle" type="tns:getTitle"></xs:element>
+
+<xs:element name="getTitleResponse" type="tns:getTitleResponse"></xs:element>
+
+<xs:element name="searchDocumentsFor" type="tns:searchDocumentsFor"></xs:element>
+
+<xs:element name="searchDocumentsForCsv" type="tns:searchDocumentsForCsv"></xs:element>
+
+<xs:element name="searchDocumentsForCsvResponse" type="tns:searchDocumentsForCsvResponse"></xs:element>
+
+<xs:element name="searchDocumentsForResponse" type="tns:searchDocumentsForResponse"></xs:element>
+
+<xs:complexType name="searchDocumentsFor">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchDocumentsForResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getContent">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getContentResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createDocument">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createDocumentResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDocument">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDocumentResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchDocumentsForCsv">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="searchDocumentsForCsvResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTitle">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTitleResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

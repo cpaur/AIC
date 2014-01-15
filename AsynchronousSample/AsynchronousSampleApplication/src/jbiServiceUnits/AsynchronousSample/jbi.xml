@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns0="http://enterprise.netbeans.org/bpel/AsynchronousSample" xmlns:ns1="http://testPackage/" xmlns:ns2="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient" xmlns:ns3="http://ex5.aic.tu/" xmlns:ns4="AnalysisService" xmlns:ns5="ReportService" xmlns:ns6="http://www.sun.com/jbi/descriptor/service-unit" version="1.0">
+    <services binding-component="false">
+        <provides endpoint-name="serviceProvider_myRole" interface-name="ns0:MyPortType" service-name="ns0:partnerLinkA">
+            <ns6:display-name>partnerLinkA</ns6:display-name>
+            <ns6:process-name>AsynchronousSample</ns6:process-name>
+            <ns6:file-path>AsynchronousSample.bpel</ns6:file-path>
+        </provides>
+        <provides endpoint-name="AsynchronousClientProvider_myRole" interface-name="ns2:MyPortTypeClient" service-name="ns2:partnerLinkA">
+            <ns6:display-name>partnerLinkA</ns6:display-name>
+            <ns6:process-name>AsynchronousSampleClient</ns6:process-name>
+            <ns6:file-path>AsynchronousSampleClient.bpel</ns6:file-path>
+        </provides>
+        <provides endpoint-name="serviceRequestor_myRole" interface-name="ns0:MyCallbackPortType" service-name="ns2:partnerLinkB">
+            <ns6:display-name>partnerLinkB</ns6:display-name>
+            <ns6:process-name>AsynchronousSampleClient</ns6:process-name>
+            <ns6:file-path>AsynchronousSampleClient.bpel</ns6:file-path>
+        </provides>
+        <consumes endpoint-name="HumanServiceRole_partnerRole" interface-name="ns1:HumanService" service-name="ns0:PartnerLinkHumanService">
+            <ns6:display-name>PartnerLinkHumanService</ns6:display-name>
+            <ns6:process-name>AsynchronousSample</ns6:process-name>
+            <ns6:file-path>AsynchronousSample.bpel</ns6:file-path>
+        </consumes>
+        <consumes endpoint-name="serviceRequestor_partnerRole" interface-name="ns0:MyCallbackPortType" service-name="ns0:partnerLinkA">
+            <ns6:display-name>partnerLinkA</ns6:display-name>
+            <ns6:process-name>AsynchronousSample</ns6:process-name>
+            <ns6:file-path>AsynchronousSample.bpel</ns6:file-path>
+        </consumes>
+        <consumes endpoint-name="CouchDbSvcRole_partnerRole" interface-name="ns3:CouchDbSvc" service-name="ns2:PartnerLinkCouchDb">
+            <ns6:display-name>PartnerLinkCouchDb</ns6:display-name>
+            <ns6:process-name>AsynchronousSampleClient</ns6:process-name>
+            <ns6:file-path>AsynchronousSampleClient.bpel</ns6:file-path>
+        </consumes>
+        <consumes endpoint-name="TwitterServiceRole_partnerRole" interface-name="ns3:TwitterService" service-name="ns2:PartnerLinkTwitterService">
+            <ns6:display-name>PartnerLinkTwitterService</ns6:display-name>
+            <ns6:process-name>AsynchronousSampleClient</ns6:process-name>
+            <ns6:file-path>AsynchronousSampleClient.bpel</ns6:file-path>
+        </consumes>
+        <consumes endpoint-name="AnalysisServiceRole_partnerRole" interface-name="ns4:AnalysisServicePortType" service-name="ns2:PartnerLinkAnalysis">
+            <ns6:display-name>PartnerLinkAnalysis</ns6:display-name>
+            <ns6:process-name>AsynchronousSampleClient</ns6:process-name>
+            <ns6:file-path>AsynchronousSampleClient.bpel</ns6:file-path>
+        </consumes>
+        <consumes endpoint-name="ReportServiceRole_partnerRole" interface-name="ns5:ReportServicePortType" service-name="ns2:PartnerLinkReport">
+            <ns6:display-name>PartnerLinkReport</ns6:display-name>
+            <ns6:process-name>AsynchronousSampleClient</ns6:process-name>
+            <ns6:file-path>AsynchronousSampleClient.bpel</ns6:file-path>
+        </consumes>
+        <consumes endpoint-name="serviceProvider_partnerRole" interface-name="ns0:MyPortType" service-name="ns2:partnerLinkB">
+            <ns6:display-name>partnerLinkB</ns6:display-name>
+            <ns6:process-name>AsynchronousSampleClient</ns6:process-name>
+            <ns6:file-path>AsynchronousSampleClient.bpel</ns6:file-path>
+        </consumes>
+    </services>
+</jbi>

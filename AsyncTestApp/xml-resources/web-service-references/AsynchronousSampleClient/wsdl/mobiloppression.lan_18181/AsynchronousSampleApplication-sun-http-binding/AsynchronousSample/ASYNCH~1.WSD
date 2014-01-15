@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AsynchronousSample" targetNamespace="http://enterprise.netbeans.org/bpel/AsynchronousSample" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://enterprise.netbeans.org/bpel/AsynchronousSample" xmlns:bpws="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xsd:schema targetNamespace="http://enterprise.netbeans.org/bpel/AsynchronousSample" xmlns="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace">
+        <xsd:import namespace="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace" schemaLocation="http://mobiloppression.lan:18181/AsynchronousSampleApplication-sun-http-binding/AsynchronousSample/AsynchronousSample.xsd"/>
+        </xsd:schema>
+  </types>
+  <message name="requestMessage">
+    <part name="inputType" element="xs:typeB">
+    </part>
+  </message>
+  <message name="responseMessage">
+    <part name="resultType" element="xs:typeB">
+    </part>
+  </message>
+  <portType name="MyPortType">
+    <operation name="asyncOperation">
+      <input message="tns:requestMessage">
+    </input>
+    </operation>
+  </portType>
+  <portType name="MyCallbackPortType">
+    <operation name="onResult">
+      <input message="tns:responseMessage">
+    </input>
+    </operation>
+  </portType>
+  <binding name="CallbackSoapBinding" type="tns:MyCallbackPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="onResult">
+      <soap:operation/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <binding name="SoapBinding" type="tns:MyPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="asyncOperation">
+      <soap:operation/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+  </binding>
+  <service name="AsynchronousClient_asyncCallbackService">
+    <port name="AsynchronousClient_asyncCallbackPortName" binding="tns:CallbackSoapBinding">
+      <soap:address location="http://mobiloppression.lan:18181/AsynchronousSampleCallback"/>
+    </port>
+  </service>
+  <service name="AsynchronousSample_asyncService">
+    <port name="AsynchronousSample_asyncPortName" binding="tns:SoapBinding">
+      <soap:address location="http://mobiloppression.lan:18181/AsynchronousSample"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="AsyncPartnerLinkType">
+        <plnk:role name="serviceProvider" portType="tns:MyPortType">
+        </plnk:role>
+        <plnk:role name="serviceRequestor" portType="tns:MyCallbackPortType">
+        </plnk:role>
+    </plnk:partnerLinkType>
+</definitions>

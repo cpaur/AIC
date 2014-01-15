@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://enterprise.netbeans.org/bpel/AsynchronousSample" xmlns:ns2="ReportService" xmlns:ns3="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient" xmlns:ns4="http://testPackage/" xmlns:ns5="AnalysisService" xmlns:ns6="http://ex5.aic.tu/" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="AsynchronousSample_asyncPortName" interface-name="ns1:MyPortType" name="endpoint1" service-name="ns1:AsynchronousSample_asyncService"/>
+        <endpoint endpoint-name="ReportServiceSoapBinding" interface-name="ns2:ReportServicePortType" name="endpoint2" service-name="ns2:ReportService"/>
+        <endpoint endpoint-name="AsynchronousClient_asyncCallbackPortName" interface-name="ns1:MyCallbackPortType" name="endpoint3" service-name="ns1:AsynchronousClient_asyncCallbackService"/>
+        <endpoint endpoint-name="AsynchronousClientPortName" interface-name="ns3:MyPortTypeClient" name="endpoint4" service-name="ns3:AsynchronousClientService"/>
+        <endpoint endpoint-name="HumanServicePort" interface-name="ns4:HumanService" name="endpoint5" service-name="ns4:HumanServiceService"/>
+        <endpoint endpoint-name="AnalysisServiceSoapBinding" interface-name="ns5:AnalysisServicePortType" name="endpoint6" service-name="ns5:AnalysisService"/>
+        <endpoint endpoint-name="CouchDbSvcPort" interface-name="ns6:CouchDbSvc" name="endpoint7" service-name="ns6:CouchDbSvcService"/>
+        <endpoint endpoint-name="TwitterServicePort" interface-name="ns6:TwitterService" name="endpoint8" service-name="ns6:TwitterServiceService"/>
+        <endpoint display-name="partnerLinkA" endpoint-name="serviceProvider_myRole" file-path="AsynchronousSample.bpel" interface-name="ns1:MyPortType" name="endpoint9" process-name="AsynchronousSample" service-name="ns1:partnerLinkA"/>
+        <endpoint display-name="partnerLinkA" endpoint-name="AsynchronousClientProvider_myRole" file-path="AsynchronousSampleClient.bpel" interface-name="ns3:MyPortTypeClient" name="endpoint10" process-name="AsynchronousSampleClient" service-name="ns3:partnerLinkA"/>
+        <endpoint display-name="partnerLinkB" endpoint-name="serviceRequestor_myRole" file-path="AsynchronousSampleClient.bpel" interface-name="ns1:MyCallbackPortType" name="endpoint11" process-name="AsynchronousSampleClient" service-name="ns3:partnerLinkB"/>
+        <endpoint display-name="PartnerLinkHumanService" endpoint-name="HumanServiceRole_partnerRole" file-path="AsynchronousSample.bpel" interface-name="ns4:HumanService" name="endpoint12" process-name="AsynchronousSample" service-name="ns1:PartnerLinkHumanService"/>
+        <endpoint display-name="partnerLinkA" endpoint-name="serviceRequestor_partnerRole" file-path="AsynchronousSample.bpel" interface-name="ns1:MyCallbackPortType" name="endpoint13" process-name="AsynchronousSample" service-name="ns1:partnerLinkA"/>
+        <endpoint display-name="PartnerLinkCouchDb" endpoint-name="CouchDbSvcRole_partnerRole" file-path="AsynchronousSampleClient.bpel" interface-name="ns6:CouchDbSvc" name="endpoint14" process-name="AsynchronousSampleClient" service-name="ns3:PartnerLinkCouchDb"/>
+        <endpoint display-name="PartnerLinkTwitterService" endpoint-name="TwitterServiceRole_partnerRole" file-path="AsynchronousSampleClient.bpel" interface-name="ns6:TwitterService" name="endpoint15" process-name="AsynchronousSampleClient" service-name="ns3:PartnerLinkTwitterService"/>
+        <endpoint display-name="PartnerLinkAnalysis" endpoint-name="AnalysisServiceRole_partnerRole" file-path="AsynchronousSampleClient.bpel" interface-name="ns5:AnalysisServicePortType" name="endpoint16" process-name="AsynchronousSampleClient" service-name="ns3:PartnerLinkAnalysis"/>
+        <endpoint display-name="PartnerLinkReport" endpoint-name="ReportServiceRole_partnerRole" file-path="AsynchronousSampleClient.bpel" interface-name="ns2:ReportServicePortType" name="endpoint17" process-name="AsynchronousSampleClient" service-name="ns3:PartnerLinkReport"/>
+        <endpoint display-name="partnerLinkB" endpoint-name="serviceProvider_partnerRole" file-path="AsynchronousSampleClient.bpel" interface-name="ns1:MyPortType" name="endpoint18" process-name="AsynchronousSampleClient" service-name="ns3:partnerLinkB"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="AsynchronousSample.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="AsynchronousSampleApplication-AsynchronousSample" unit-name="AsynchronousSample" unknown="false" x="126" y="99">
+            <provides endpoint="endpoint9"/>
+            <provides endpoint="endpoint10"/>
+            <provides endpoint="endpoint11"/>
+            <consumes endpoint="endpoint12"/>
+            <consumes endpoint="endpoint13"/>
+            <consumes endpoint="endpoint14"/>
+            <consumes endpoint="endpoint15"/>
+            <consumes endpoint="endpoint16"/>
+            <consumes endpoint="endpoint17"/>
+            <consumes endpoint="endpoint18"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="AsynchronousSampleApplication-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="592">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/service[@name='AsynchronousSample_asyncService']/port[@name='AsynchronousSample_asyncPortName'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="434">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/service[@name='AsynchronousClient_asyncCallbackService']/port[@name='AsynchronousClient_asyncCallbackPortName'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+                <port x="67" y="355">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSampleClient.wsdl#xpointer(/definitions/service[@name='AsynchronousClientService']/port[@name='AsynchronousClientPortName'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+                <port x="67" y="276">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl#xpointer(/definitions/service[@name='AnalysisService']/port[@name='AnalysisServiceSoapBinding'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint6"/>
+                    <provides endpoint="endpoint6"/>
+                </port>
+                <port x="67" y="513">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl#xpointer(/definitions/service[@name='ReportService']/port[@name='ReportServiceSoapBinding'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/AsyncWebApp/HumanServiceService.wsdl#xpointer(/definitions/service[@name='HumanServiceService']/port[@name='HumanServicePort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5"/>
+                </port>
+                <port x="67" y="118">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl#xpointer(/definitions/service[@name='CouchDbSvcService']/port[@name='CouchDbSvcPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint7"/>
+                    <provides endpoint="endpoint7"/>
+                </port>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/TwitterService/TwitterServiceService.wsdl#xpointer(/definitions/service[@name='TwitterServiceService']/port[@name='TwitterServicePort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint8"/>
+                    <provides endpoint="endpoint8"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint3" provider="endpoint11" state="unchanged"/>
+        <connection consumer="endpoint1" provider="endpoint9" state="unchanged"/>
+        <connection consumer="endpoint4" provider="endpoint10" state="unchanged"/>
+        <connection consumer="endpoint16" provider="endpoint6" state="unchanged"/>
+        <connection consumer="endpoint14" provider="endpoint7" state="unchanged"/>
+        <connection consumer="endpoint15" provider="endpoint8" state="unchanged"/>
+        <connection consumer="endpoint12" provider="endpoint5" state="unchanged"/>
+        <connection consumer="endpoint17" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint13" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint18" provider="endpoint9" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/portType[@name='MyPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/portType[@name='MyCallbackPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSampleClient.wsdl#xpointer(/definitions/portType[@name='MyPortTypeClient'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl#xpointer(/definitions/portType[@name='AnalysisServicePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl#xpointer(/definitions/portType[@name='ReportServicePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/AsyncWebApp/HumanServiceService.wsdl#xpointer(/definitions/portType[@name='HumanService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl#xpointer(/definitions/portType[@name='CouchDbSvc'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/TwitterService/TwitterServiceService.wsdl#xpointer(/definitions/portType[@name='TwitterService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl#xpointer(/definitions/portType[@name='AnalysisServicePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl#xpointer(/definitions/portType[@name='ReportServicePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/AsyncWebApp/HumanServiceService.wsdl#xpointer(/definitions/portType[@name='HumanService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl#xpointer(/definitions/portType[@name='CouchDbSvc'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/TwitterService/TwitterServiceService.wsdl#xpointer(/definitions/portType[@name='TwitterService'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/binding[@name='SoapBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/binding[@name='CallbackSoapBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSampleClient.wsdl#xpointer(/definitions/binding[@name='SoapBindingClient'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl#xpointer(/definitions/binding[@name='AnalysisServiceSoapBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl#xpointer(/definitions/binding[@name='ReportServiceSoapBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/AsyncWebApp/HumanServiceService.wsdl#xpointer(/definitions/binding[@name='HumanServicePortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl#xpointer(/definitions/binding[@name='CouchDbSvcPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/TwitterService/TwitterServiceService.wsdl#xpointer(/definitions/binding[@name='TwitterServicePortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl#xpointer(/definitions/binding[@name='AnalysisServiceSoapBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl#xpointer(/definitions/binding[@name='ReportServiceSoapBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/AsyncWebApp/HumanServiceService.wsdl#xpointer(/definitions/binding[@name='HumanServicePortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl#xpointer(/definitions/binding[@name='CouchDbSvcPortBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/TwitterService/TwitterServiceService.wsdl#xpointer(/definitions/binding[@name='TwitterServicePortBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/service[@name='AsynchronousSample_asyncService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSample.wsdl#xpointer(/definitions/service[@name='AsynchronousClient_asyncCallbackService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/AsynchronousSampleClient.wsdl#xpointer(/definitions/service[@name='AsynchronousClientService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl#xpointer(/definitions/service[@name='AnalysisService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl#xpointer(/definitions/service[@name='ReportService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/AsyncWebApp/HumanServiceService.wsdl#xpointer(/definitions/service[@name='HumanServiceService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl#xpointer(/definitions/service[@name='CouchDbSvcService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AsynchronousSample/localhost_8080/TwitterService/TwitterServiceService.wsdl#xpointer(/definitions/service[@name='TwitterServiceService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl#xpointer(/definitions/service[@name='AnalysisService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl#xpointer(/definitions/service[@name='ReportService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/AsyncWebApp/HumanServiceService.wsdl#xpointer(/definitions/service[@name='HumanServiceService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl#xpointer(/definitions/service[@name='CouchDbSvcService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AsynchronousSample/src/localhost_8080/TwitterService/TwitterServiceService.wsdl#xpointer(/definitions/service[@name='TwitterServiceService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <ns1:typeB xmlns:msgns="http://enterprise.netbeans.org/bpel/AsynchronousSampleClient" xmlns:ns1="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace">
+      <faultInfo xmlns="">Your Search yielded no Results.</faultInfo>
+      <id xmlns:asy="http://enterprise.netbeans.org/bpel/AsynchronousSampleSchemaNamespace" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="">12345A</id>
+    </ns1:typeB>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

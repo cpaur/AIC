@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/reportService?wsdl" uri="AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.wsdl"/>
+    <system systemId="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/reportService?xsd=types.xsd" uri="AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/reportService.xsd_types.xsd"/>
+    <system systemId="http://localhost:8080/CouchDbSvc/CouchDbSvcService?wsdl" uri="AsynchronousSample/src/localhost_8080/CouchDbSvc/CouchDbSvcService.wsdl"/>
+    <system systemId="http://localhost:8080/CouchDbSvc/CouchDbSvcService?xsd=1" uri="AsynchronousSample/src/localhost_8080/CouchDbSvc/CouchDbSvcService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/TwitterService/TwitterServiceService?wsdl" uri="AsynchronousSample/src/localhost_8080/TwitterService/TwitterServiceService.wsdl"/>
+    <system systemId="http://localhost:8080/TwitterService/TwitterServiceService?xsd=1" uri="AsynchronousSample/src/localhost_8080/TwitterService/TwitterServiceService.xsd_1.xsd"/>
+    <system systemId="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/analysisService?wsdl" uri="AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.wsdl"/>
+    <system systemId="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/analysisService?xsd=types.xsd" uri="AsynchronousSample/src/ec2-54-227-60-62.compute-1.amazonaws.com_8080/services/analysisService.xsd_types.xsd"/>
+    <system systemId="http://localhost:8080/AsyncWebApp/HumanServiceService?wsdl" uri="AsynchronousSample/src/localhost_8080/AsyncWebApp/HumanServiceService.wsdl"/>
+    <system systemId="http://localhost:8080/AsyncWebApp/HumanServiceService?xsd=1" uri="AsynchronousSample/src/localhost_8080/AsyncWebApp/HumanServiceService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/AsyncWebApp/HumanServiceService?xsd=2" uri="AsynchronousSample/src/localhost_8080/AsyncWebApp/HumanServiceService.xsd_2.xsd"/>
+</catalog>

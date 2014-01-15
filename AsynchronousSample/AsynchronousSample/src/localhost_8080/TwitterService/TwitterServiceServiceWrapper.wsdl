@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TwitterServiceServiceWrapper" targetNamespace="http://enterprise.netbeans.org/bpel/TwitterServiceServiceWrapper" xmlns:tns="http://enterprise.netbeans.org/bpel/TwitterServiceServiceWrapper" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="http://ex5.aic.tu/">
+    <import location="TwitterServiceService.wsdl" namespace="http://ex5.aic.tu/"/>
+    <plnk:partnerLinkType name="TwitterServiceLinkType">
+        <plnk:role name="TwitterServiceRole" portType="ns:TwitterService"/>
+    </plnk:partnerLinkType>
+</definitions>

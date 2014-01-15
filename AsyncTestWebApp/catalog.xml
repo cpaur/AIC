@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Dokumente%20und%20Einstellungen/Install/Eigene%20Dateien/NetBeansProjects/AsyncTestWebApp/src/java/AsynchronousSample.wsdl" uri="src/conf/xml-resources/web-services/AsynchronousSample/wsdl/AsynchronousSample.wsdl"/>
+    <system systemId="file:/C:/Dokumente%20und%20Einstellungen/Install/Eigene%20Dateien/NetBeansProjects/AsyncTestWebApp/src/java/AsynchronousSample.xsd" uri="src/conf/xml-resources/web-services/AsynchronousSample/wsdl/AsynchronousSample.xsd"/>
+    <system systemId="http://localhost:18181/AsynchronousSampleClient?wsdl" uri="src/conf/xml-resources/web-service-references/AsynchronousSampleClient/wsdl/localhost_18181/AsynchronousSampleClient.wsdl"/>
+    <system systemId="http://128.131.196.192:18181/AsynchronousSampleApplication-sun-http-binding/AsynchronousSample/AsynchronousSample.xsd" uri="src/conf/xml-resources/web-service-references/AsynchronousSampleClient/wsdl/128.131.196.192_18181/AsynchronousSampleApplication-sun-http-binding/AsynchronousSample/AsynchronousSample.xsd"/>
+    <system systemId="http://128.131.196.192:18181/AsynchronousSampleApplication-sun-http-binding/AsynchronousSample/AsynchronousSample.wsdl" uri="src/conf/xml-resources/web-service-references/AsynchronousSampleClient/wsdl/128.131.196.192_18181/AsynchronousSampleApplication-sun-http-binding/AsynchronousSample/AsynchronousSample.wsdl"/>
+</catalog>
