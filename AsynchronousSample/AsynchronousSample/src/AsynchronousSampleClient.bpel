@@ -477,7 +477,7 @@
                     </scope>
                     
                     <if name="IfHasNotEnoughConfidence">
-                        <condition>$CalculateConfidenceOut.Confidence/ns0:confidence &gt; 0.5</condition>
+                        <condition>$CalculateConfidenceOut.Confidence/ns0:confidence &lt; 0.5</condition>
 
                         <scope name="ScopeAsyncConfirmation">
 

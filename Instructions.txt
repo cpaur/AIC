@@ -1,0 +1,38 @@
+Installation Instructions:
+
+01) Install JDK 1.6.0_38 (Newer JDKs DO NOT WORK WITH NETBEANS SOA!)
+
+02) Install NetBeans SOA 6.5 (from soa.netbeans.org )
+
+03) Install CouchDb 
+
+04) Copy "AIC.couch" to <CouchDbPath>\var\lib\couchdb
+
+05) Copy Directories "AsynchronousSample", "AsyncTestApp", "AsyncTestWebApp", "CouchDbSvc", "TwitterService"
+	to your NetBeansProjects
+
+06) Import VerisignMid.cer to \glassfish-v2ur2\domains\domain1\config\cacerts.jks
+	eg. C:\Programme\Java\jdk1.6.0_38\bin\keytool.exe -import -trustcacerts -alias VeriMid -file VerisignMid.cer -keystore cacerts.jks
+
+07) Start Netbeans, Import all the Projects (see step 05). 
+	There are 2 Projects in Directory "AsynchronousSample"
+
+08) Deploy "CouchDb", "AsyncTestWebApp", "TwitterService" and "AsynchronousSampleApplication" 
+	to Glassfish
+
+09) Check WSDLs at:
+	http://localhost:18181/AsynchronousSampleClient?wsdl
+	http://localhost:8080/AsyncWebApp/HumanServiceService?wsdl
+	http://localhost:8080/CouchDbSvc/CouchDbSvcService?wsdl
+	http://localhost:8080/TwitterService/TwitterServiceService?wsdl
+
+GREAT SUCCESS!
+
+---------------------
+
+Run Instructions:
+
+01) Run AsyncTestApp to make a Request
+
+02) Check the WebApp if Reports need to be confirmed
+	http://localhost:8080/AsyncWebApp/

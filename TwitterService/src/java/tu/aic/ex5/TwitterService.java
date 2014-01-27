@@ -35,7 +35,7 @@ public class TwitterService {
 			  .setOAuthAccessToken("2210259386-rkUPkMEVzjHJtFlvciOF19fLqOXdQTJkQCTZFk8")
 			  .setOAuthAccessTokenSecret("H8GyfbkyrtqrYy7ZxvQhIGgIh55L69QamJad3GEOuzIJd");
 
-            cb.setUseSSL(false);
+            cb.setUseSSL(true);
 			tf = new TwitterFactory(cb.build());
             
 		}
@@ -66,7 +66,7 @@ public class TwitterService {
             if (fin.length() > 2) {
                 boolean missingKw = false;
                 for (String kw : keywords)
-                    if (kw.trim().length() > 1 && !finLower.contains(kw.toLowerCase())) {
+                    if (kw != null && kw.trim().length() > 1 && !finLower.contains(kw.toLowerCase())) {
                         missingKw = true;
                         break;
                     }
