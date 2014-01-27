@@ -37,7 +37,7 @@
   </wsdl:binding>
   <wsdl:service name="ReportService">
     <wsdl:port binding="tns:ReportServiceSoapBinding" name="ReportServiceSoapBinding">
-      <soap:address location="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/reportService" />
+      <soap:address location="http://ec2-50-19-175-48.compute-1.amazonaws.com:8080/services/reportService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

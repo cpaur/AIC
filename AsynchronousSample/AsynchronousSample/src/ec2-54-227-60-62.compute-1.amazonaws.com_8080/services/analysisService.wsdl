@@ -85,7 +85,7 @@
   </wsdl:binding>
   <wsdl:service name="AnalysisService">
     <wsdl:port binding="tns:AnalysisServiceSoapBinding" name="AnalysisServiceSoapBinding">
-      <soap:address location="http://ec2-54-227-60-62.compute-1.amazonaws.com:8080/services/analysisService" />
+      <soap:address location="http://ec2-50-19-175-48.compute-1.amazonaws.com:8080/services/analysisService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
